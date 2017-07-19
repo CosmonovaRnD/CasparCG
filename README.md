@@ -11,7 +11,7 @@ Installation
 
 Install using Composer
 
-> php composer.phar require CosmonovaRnD/CasparCG
+> php composer.phar require cosmonova-rnd/caspar-cg
 
 Usage
 ---
