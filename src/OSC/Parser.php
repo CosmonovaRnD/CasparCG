@@ -83,7 +83,7 @@ class Parser
 
         // match address and type tags by pattern
         preg_match_all(
-            '#(/channel/\d+(/[\w_-]+)*\x00*),([ifsbhtdcTFNI]*)#',
+            '#(/(channel|diag)/\d+(/[\w_-]+)*\x00*),([ifsbhtdcTFNI]*)#',
             $msg['msg'],
             $matches
         );
@@ -95,7 +95,7 @@ class Parser
         // get total address length (with type tags)
         $addressLen = $this->strLen($matches[0][0]);
         // Type tags
-        $typeTags    = $matches[3][0];
+        $typeTags    = $matches[4][0];
         $typeTagsLen = strlen($typeTags);
 
         // Hold already read bytes offset
