@@ -36,8 +36,11 @@ abstract class Stage extends Channel
 
         if (isset($matches[0], $matches[1], $matches[2])) {
             $newMessage = new static((int)$matches[1][0], (int)$matches[2][0], $message->getArguments());
-            $newMessage->setEventManager($eventManager);
-            $newMessage->dispatch();
+
+            if ($eventManager) {
+                $newMessage->setEventManager($eventManager);
+                $newMessage->dispatch();
+            }
         }
 
         return null;

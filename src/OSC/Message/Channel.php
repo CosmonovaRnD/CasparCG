@@ -34,8 +34,11 @@ abstract class Channel extends AbstractMessage
 
         if (isset($matches[0], $matches[1])) {
             $newMsg = new static((int)$matches[1], $message->getArguments());
-            $newMsg->setEventManager($eventManager);
-            $newMsg->dispatch();
+
+            if ($eventManager) {
+                $newMsg->setEventManager($eventManager);
+                $newMsg->dispatch();
+            }
         }
 
         return null;
