@@ -35,12 +35,14 @@ abstract class Stage extends Channel
         preg_match(static::$pattern, $message->getAddress(), $matches);
 
         if (isset($matches[0], $matches[1], $matches[2])) {
-            $newMessage = new static((int)$matches[1][0], (int)$matches[2][0], $message->getArguments());
+            $newMessage = new static((int)$matches[1], (int)$matches[2], $message->getArguments());
 
             if ($eventManager) {
                 $newMessage->setEventManager($eventManager);
                 $newMessage->dispatch();
             }
+
+            return $newMessage;
         }
 
         return null;

@@ -39,6 +39,8 @@ abstract class Channel extends AbstractMessage
                 $newMsg->setEventManager($eventManager);
                 $newMsg->dispatch();
             }
+
+            return $newMsg;
         }
 
         return null;
