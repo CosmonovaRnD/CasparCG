@@ -19,9 +19,6 @@ class Client
     private $port;
     /** @var resource */
     private $connection;
-    /** @var bool */
-    private $connected = false;
-
     /** @var int|null */
     private $errorCode;
     /** @var  string|null */
@@ -50,9 +47,9 @@ class Client
      *
      * @return bool
      */
-    private function connect(): bool
+    public function connect(): bool
     {
-        if ($this->connected) {
+        if ($this->isConnected()) {
             return true;
         }
 
@@ -61,11 +58,17 @@ class Client
         $this->connection = stream_socket_client($connectStr, $this->errorCode, $this->errorMessage, $this->timeout);
         stream_set_blocking($this->connection, true);
 
-        if (false !== $this->connection) {
-            $this->connected = true;
-        }
+        return $this->isConnected();
+    }
 
-        return $this->connected;
+    /**
+     * Check if client connected
+     *
+     * @return bool
+     */
+    public function isConnected()
+    {
+        return is_resource($this->connection);
     }
 
     /**
@@ -162,12 +165,11 @@ class Client
      */
     public function closeSocket(): bool
     {
-        if (!$this->connected) {
+        if (!$this->isConnected()) {
             return true;
         }
 
         fclose($this->connection);
-        $this->connected = false;
 
         return true;
     }
