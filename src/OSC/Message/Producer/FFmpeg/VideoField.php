@@ -23,7 +23,7 @@ class VideoField extends Stage
      */
     public function __construct(int $channel, int $layer, array $data)
     {
-        $this->value = (string)$data[0] ?? (string)'undefined type';
+        $this->value = (string)rtrim($data[0], "\0") ?? 'undefined type';
 
         parent::__construct($channel, $layer);
     }

@@ -23,7 +23,7 @@ class Path extends Stage
      */
     public function __construct(int $channel, int $layer, array $data)
     {
-        $this->value = (string)$data[0] ?? (string)'undefined path';
+        $this->value = (string)rtrim($data[0], "\0") ?? 'undefined path';
 
         parent::__construct($channel, $layer);
     }

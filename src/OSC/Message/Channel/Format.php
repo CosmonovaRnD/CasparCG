@@ -23,7 +23,7 @@ class Format extends Channel
      */
     public function __construct(int $channel, array $data)
     {
-        $this->value = (string)$data[0] ?? 'Unknown format';
+        $this->value = (string)rtrim($data[0], "\0") ?? 'Unknown format';
 
         parent::__construct($channel);
     }

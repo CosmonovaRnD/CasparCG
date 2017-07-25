@@ -23,7 +23,7 @@ class VideoCodec extends Stage
      */
     public function __construct(int $channel, int $layer, array $data)
     {
-        $this->value = (string)$data[0] ?? (string)'undefined codec';
+        $this->value = (string)$data[0] ?? 'undefined codec';
 
         parent::__construct($channel, $layer);
     }

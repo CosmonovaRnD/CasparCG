@@ -23,7 +23,7 @@ class AudioChannels extends Stage
      */
     public function __construct(int $channel, int $layer, array $data)
     {
-        $this->value = (int)$data[0] ?? (int)0;
+        $this->value = (int)$data[0] ?? 0;
 
         parent::__construct($channel, $layer);
     }

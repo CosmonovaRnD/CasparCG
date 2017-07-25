@@ -23,7 +23,7 @@ class AudioFormat extends Stage
      */
     public function __construct(int $channel, int $layer, array $data)
     {
-        $this->value = (string)$data[0] ?? (string)'undefined format';
+        $this->value = (string)rtrim($data[0], "\0") ?? 'undefined format';
 
         parent::__construct($channel, $layer);
     }

@@ -21,7 +21,7 @@ class OutputFrameType extends OutputPort
      */
     public function __construct(int $channel, int $port, array $data)
     {
-        $this->value = (string)$data[0] ?? '';
+        $this->value = (string)rtrim($data[0], "\0") ?? '';
 
         parent::__construct($channel, $port);
     }

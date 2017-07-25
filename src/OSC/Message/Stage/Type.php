@@ -23,7 +23,7 @@ class Type extends Stage
      */
     public function __construct(int $channel, int $layer, array $data)
     {
-        $this->value = (string)$data[0] ?? (string)'type is undefined';
+        $this->value = (string)rtrim($data[0], "\0") ?? 'type is undefined';
 
         parent::__construct($channel, $layer);
     }
