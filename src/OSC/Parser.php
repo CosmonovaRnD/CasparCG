@@ -110,7 +110,7 @@ class Parser
             // get next binary data for converting
             $data = is_null($typeBytes)
                 ? substr($msg['msg'], $addressLen)
-                : substr($msg['msg'], $addressLen, $typeBytes);
+                : substr($msg['msg'], $readBytes, $typeBytes);
             // convert binary data to specified type
             $msgObj->addArgument(Converter::convert($data, $typeTags[$i]));
             // New binary data offset
