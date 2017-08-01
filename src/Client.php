@@ -20,9 +20,9 @@ class Client
     /** @var resource */
     private $connection;
     /** @var int|null */
-    private $errorCode;
+    private $errorCode = 0;
     /** @var  string|null */
-    private $errorMessage;
+    private $errorMessage = '';
     /** @var int */
     private $timeout;
 
@@ -56,7 +56,6 @@ class Client
         $connectStr = 'tcp://' . $this->address . ':' . $this->port;
         // Connecting to host
         $this->connection = stream_socket_client($connectStr, $this->errorCode, $this->errorMessage, $this->timeout);
-        stream_set_blocking($this->connection, true);
 
         return $this->isConnected();
     }
@@ -69,6 +68,40 @@ class Client
     public function isConnected()
     {
         return is_resource($this->connection);
+    }
+
+    /**
+     * Chech if connection is alive
+     *
+     * @return bool
+     */
+    public function isAlive(): bool
+    {
+        return !feof($this->connection);
+    }
+
+    /**
+     * Get connection last error code
+     *
+     * @return int
+     *
+     * @see http://php.net/manual/ru/function.socket-last-error.php
+     */
+    public function getConnectionErrorCode()
+    {
+        return $this->errorCode;
+    }
+
+    /**
+     * Get connection last error message
+     *
+     * @return string
+     *
+     * @see http://php.net/manual/ru/function.socket-strerror.php
+     */
+    public function getConnectionErrorMessage()
+    {
+        return $this->errorMessage;
     }
 
     /**
@@ -165,11 +198,8 @@ class Client
      */
     public function closeSocket(): bool
     {
-        if (!$this->isConnected()) {
-            return true;
-        }
-
-        fclose($this->connection);
+        @fclose($this->connection);
+        $this->connection = null;
 
         return true;
     }
