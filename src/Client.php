@@ -71,7 +71,7 @@ class Client
     }
 
     /**
-     * Chech if connection is alive
+     * Check if connection is alive
      *
      * @return bool
      */
