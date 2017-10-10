@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\Command\Basic\Builder;
 
+use CosmonovaRnD\CasparCG\Command\Tween;
 use CosmonovaRnD\CasparCG\Exception\ParamException;
 use CosmonovaRnD\CasparCG\Exception\ParseException;
 
@@ -81,7 +83,7 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
             $clipParts = explode('.', $clip);
 
             if (count($clipParts) > 1) {
-                $ext  = array_pop($clipParts);
+                array_pop($clipParts);
                 $clip = implode('.', $clipParts);
             }
         }
@@ -135,8 +137,8 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
      */
     public function tween(string $tween): ExtendBuilderInterface
     {
-        if (!in_array($tween, static::tweenTypes())) {
-            $message = 'Tween param must be one of the following values: ' . join(',', static::tweenTypes());
+        if (!in_array($tween, Tween::animationTypes())) {
+            $message = 'Tween param must be one of the following values: ' . join(',', Tween::animationTypes());
             throw new ParamException($message);
         }
 
@@ -290,7 +292,7 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
             throw new ParseException('Duration is required');
         }
 
-        return $this->duration;
+        return (string)$this->duration;
     }
 
     /**
@@ -373,59 +375,6 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
             self::TRANSITION_PUSH,
             self::TRANSITION_SLIDE,
             self::TRANSITION_WIPE
-        ];
-    }
-
-    /**
-     * Supported tween types
-     *
-     * @return array
-     */
-    public static function tweenTypes()
-    {
-        return [
-            'linear',
-            'easenone',
-            'easeinquad',
-            'easeoutquad',
-            'easeinoutquad',
-            'easeoutinquad',
-            'easeincubic',
-            'easeoutcubic',
-            'easeinoutcubic',
-            'easeoutincubic',
-            'easeinquart',
-            'easeoutquart',
-            'easeinoutquart',
-            'easeoutinquart',
-            'easeinquint',
-            'easeoutquint',
-            'easeinoutquint',
-            'easeoutinquint',
-            'easeinsine',
-            'easeoutsine',
-            'easeinoutsine',
-            'easeoutinsine',
-            'easeinexpo',
-            'easeoutexpo',
-            'easeinoutexpo',
-            'easeoutinexpo',
-            'easeincirc',
-            'easeoutcirc',
-            'easeinoutcirc',
-            'easeoutincirc',
-            'easeinelastic',
-            'easeoutelastic',
-            'easeinoutelastic',
-            'easeoutinelastic',
-            'easeinback',
-            'easeoutback',
-            'easeinoutback',
-            'easeoutintback',
-            'easeoutbounce',
-            'easeinbounce',
-            'easeinoutbounce',
-            'easeoutinbounce',
         ];
     }
 

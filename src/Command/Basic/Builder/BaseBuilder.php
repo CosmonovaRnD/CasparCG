@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\Command\Basic\Builder;
 
+use CosmonovaRnD\CasparCG\Command\BaseBuilderInterface;
 use CosmonovaRnD\CasparCG\Command\CommandBuilderInterface;
+use CosmonovaRnD\CasparCG\Command\SimpleBuilderInterface;
 use CosmonovaRnD\CasparCG\Exception\ParamException;
 use CosmonovaRnD\CasparCG\Exception\ParseException;
 

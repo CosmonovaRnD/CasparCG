@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\OSC\Message;
 
@@ -14,6 +15,9 @@ use CosmonovaRnD\CasparCG\OSC\RawMessage;
  */
 abstract class AbstractMessage implements MessageInterface
 {
+    /** @var  string */
+    public static $pattern;
+    /** @var  EventManager */
     protected $eventManager;
 
     /**

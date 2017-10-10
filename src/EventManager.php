@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG;
 
@@ -31,7 +32,7 @@ class EventManager
      * @param string           $event   Event name (Message class name)
      * @param MessageInterface $message Message object
      */
-    public function dispatch($event, MessageInterface $message)
+    public function dispatch(string $event, MessageInterface $message)
     {
         /** @var ListenerInterface[] $listeners */
         $listeners = $this->listeners[$event] ?? [];

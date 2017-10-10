@@ -1,12 +1,13 @@
 <?php
+declare(strict_types=1);
 
-namespace CosmonovaRnD\CasparCG\Command\Basic\Builder;
+namespace CosmonovaRnD\CasparCG\Command;
 
 /**
  * Interface SimpleBuilderInterface
  *
  * @author  Aleksandr Besedin <bs@cosmonova.net>
- * @package CosmonovaRnD\CasparCG\Command\Basic\Builder
+ * @package CosmonovaRnD\CasparCG\Command
  * Cosmonova | Research & Development
  */
 interface SimpleBuilderInterface extends BaseBuilderInterface

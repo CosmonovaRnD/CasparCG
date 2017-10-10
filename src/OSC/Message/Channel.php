@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\OSC\Message;
 
@@ -33,7 +34,7 @@ abstract class Channel extends AbstractMessage
         preg_match(static::$pattern, $message->getAddress(), $matches);
 
         if (isset($matches[0], $matches[1])) {
-            $newMsg = new static((int)$matches[1], $message->getArguments());
+            $newMsg = new static((int)$matches[1]);
 
             if ($eventManager) {
                 $newMsg->setEventManager($eventManager);
