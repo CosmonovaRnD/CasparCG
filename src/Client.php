@@ -199,8 +199,10 @@ class Client
      */
     public function closeSocket(): bool
     {
-        @fclose($this->connection);
-        $this->connection = null;
+        if (is_resource($this->connection)) {
+            fclose($this->connection);
+            $this->connection = null;
+        }
 
         return true;
     }
