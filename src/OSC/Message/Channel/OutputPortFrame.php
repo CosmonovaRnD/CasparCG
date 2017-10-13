@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\OSC\Message\Channel;
 
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
+
 /**
  * Class OutputPortFrame
  *
@@ -22,20 +24,19 @@ class OutputPortFrame extends OutputPort
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $port, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->currentFrames = (int)$data[0] ?? 0;
-        $this->maxFrames     = (int)$data[1] ?? 0;
-
-        parent::__construct($channel, $port);
+        $data                = $message->getArguments();
+        $this->currentFrames = (int)($data[0] ?? 0);
+        $this->maxFrames     = (int)($data[1] ?? 0);
     }
 
     /**
      * Get current frames on port
      *
-     * @return int
+     * @return int|null
      */
-    public function getCurrentFrames(): int
+    public function getCurrentFrames(): ?int
     {
         return $this->currentFrames;
     }
@@ -43,9 +44,9 @@ class OutputPortFrame extends OutputPort
     /**
      * Get maximum frames on port
      *
-     * @return int
+     * @return int|null
      */
-    public function getMaxFrames(): int
+    public function getMaxFrames(): ?int
     {
         return $this->maxFrames;
     }

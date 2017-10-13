@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Producer\FFmpeg;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Stage;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class VideoWidth
@@ -22,19 +23,18 @@ class VideoWidth extends Stage
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->value = (int)$data[0] ?? (int)0;
-
-        parent::__construct($channel, $layer);
+        $data        = $message->getArguments();
+        $this->value = (int)($data[0] ?? 0);
     }
 
     /**
      * Frame width of the video file
      *
-     * @return int
+     * @return int|null
      */
-    public function getValue(): int
+    public function getValue(): ?int
     {
         return $this->value;
     }

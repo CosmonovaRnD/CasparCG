@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Stage;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Stage;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class Paused
@@ -22,19 +23,18 @@ class Paused extends Stage
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->value = (bool)$data[0];
-
-        parent::__construct($channel, $layer);
+        $data        = $message->getArguments();
+        $this->value = isset($data[0]) ? (bool)$data[0] : null;
     }
 
     /**
      * Whether the layer is paused or not
      *
-     * @return bool
+     * @return bool|null
      */
-    public function isValue(): bool
+    public function isValue(): ?bool
     {
         return $this->value;
     }

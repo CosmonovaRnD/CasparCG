@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\OSC\Message\Channel;
 
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
+
 /**
  * Class OutputFrameType
  *
@@ -20,17 +22,16 @@ class OutputFrameType extends OutputPort
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $port, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->value = (string)rtrim($data[0], "\0") ?? '';
-
-        parent::__construct($channel, $port);
+        $data        = $message->getArguments();
+        $this->value = isset($data[0]) ? rtrim($data[0], "\0") : '';
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }

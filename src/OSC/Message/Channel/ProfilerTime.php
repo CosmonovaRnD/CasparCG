@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Channel;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Channel;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class ProfilerTime
@@ -24,28 +25,26 @@ class ProfilerTime extends Channel
     /**
      * @inheritDoc
      */
-    public function __construct($channel, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->actual   = (float)$data[0] ?? (float)0;
-        $this->expected = (float)$data[1] ?? (float)0;
-
-        parent::__construct($channel);
+        $data           = $message->getArguments();
+        $this->actual   = (float)($data[0] ?? 0);
+        $this->expected = (float)($data[1] ?? 0);
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getActual(): float
+    public function getActual(): ?float
     {
         return $this->actual;
     }
 
     /**
-     * @return float
+     * @return float|null
      */
-    public function getExpected(): float
+    public function getExpected(): ?float
     {
         return $this->expected;
     }
-
 }

@@ -23,7 +23,7 @@ abstract class AbstractMessage implements MessageInterface
     /**
      * @inheritdoc
      */
-    abstract public static function create(RawMessage $message, EventManager $eventManager = null);
+    abstract public static function create(RawMessage $message);
 
     /**
      * @return EventManager

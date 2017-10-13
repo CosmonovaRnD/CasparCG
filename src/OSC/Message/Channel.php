@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\OSC\Message;
 
-use CosmonovaRnD\CasparCG\EventManager;
 use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
@@ -17,32 +16,18 @@ abstract class Channel extends AbstractMessage
 {
     /** @var int */
     protected $channel;
-    /** @var  mixed */
-    protected $value;
 
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, $value = null)
-    {
-        $this->channel = $channel;
-        $this->value   = $value;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function create(RawMessage $message, EventManager $eventManager = null)
+    public static function create(RawMessage $message)
     {
         preg_match(static::$pattern, $message->getAddress(), $matches);
 
         if (isset($matches[0], $matches[1])) {
-            $newMsg = new static((int)$matches[1], $message->getArguments());
-
-            if ($eventManager) {
-                $newMsg->setEventManager($eventManager);
-                $newMsg->dispatch();
-            }
+            $newMsg = new static();
+            $newMsg->setChannel($matches[1]);
+            $newMsg->parseArguments($message);
 
             return $newMsg;
         }
@@ -51,10 +36,18 @@ abstract class Channel extends AbstractMessage
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getChannel(): int
+    public function getChannel(): ?int
     {
         return $this->channel;
+    }
+
+    /**
+     * @param int $channel
+     */
+    public function setChannel(int $channel)
+    {
+        $this->channel = $channel;
     }
 }

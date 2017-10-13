@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Producer\FFmpeg;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Stage;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class AudioChannels
@@ -22,19 +23,18 @@ class AudioChannels extends Stage
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->value = (int)$data[0] ?? 0;
-
-        parent::__construct($channel, $layer);
+        $data        = $message->getArguments();
+        $this->value = (int)($data[0] ?? 0);
     }
 
     /**
      * Number of channels in this files audio track
      *
-     * @return int
+     * @return int|null
      */
-    public function getValue(): int
+    public function getValue(): ?int
     {
         return $this->value;
     }

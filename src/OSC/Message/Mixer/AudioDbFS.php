@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Mixer;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Channel;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class AudioDbFS
@@ -24,20 +25,45 @@ class AudioDbFS extends Channel
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $nbChannel, array $data)
+    public static function create(RawMessage $message)
+    {
+        preg_match(static::$pattern, $message->getAddress(), $matches);
+
+        if (isset($matches[0], $matches[1])) {
+            $newMsg = new static();
+            $newMsg->setChannel($matches[1]);
+            $newMsg->setNbChannel($matches[2]);
+            $newMsg->parseArguments($message);
+
+            return $newMsg;
+        }
+
+        return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function parseArguments(RawMessage $message)
+    {
+        $data        = $message->getArguments();
+        $this->level = (float)($data[0] ?? 0);
+    }
+
+    /**
+     * @param int $nbChannel
+     */
+    public function setNbChannel(int $nbChannel)
     {
         $this->nbChannel = $nbChannel;
-        $this->level     = (float)$data[0] ?? (float)0;
-
-        parent::__construct($channel);
     }
 
     /**
      * Audio channel number
      *
-     * @return int
+     * @return int|null
      */
-    public function getNbChannel(): int
+    public function getNbChannel(): ?int
     {
         return $this->nbChannel;
     }
@@ -45,9 +71,9 @@ class AudioDbFS extends Channel
     /**
      * Audio level in dBFS
      *
-     * @return float
+     * @return float|null
      */
-    public function getLevel(): float
+    public function getLevel(): ?float
     {
         return $this->level;
     }

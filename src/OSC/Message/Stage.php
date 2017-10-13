@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\OSC\Message;
 
-use CosmonovaRnD\CasparCG\EventManager;
 use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
@@ -19,28 +18,17 @@ abstract class Stage extends Channel
     protected $layer;
 
     /**
-     * @inheritDoc
-     */
-    public function __construct(int $channel, int $layer, $value = null)
-    {
-        parent::__construct($channel, $value);
-        $this->layer = $layer;
-    }
-
-    /**
      * @inheritdoc
      */
-    public static function create(RawMessage $message, EventManager $eventManager = null)
+    public static function create(RawMessage $message)
     {
         preg_match(static::$pattern, $message->getAddress(), $matches);
 
         if (isset($matches[0], $matches[1], $matches[2])) {
-            $newMessage = new static((int)$matches[1], (int)$matches[2], $message->getArguments());
-
-            if ($eventManager) {
-                $newMessage->setEventManager($eventManager);
-                $newMessage->dispatch();
-            }
+            $newMessage = new static();
+            $newMessage->setChannel((int)$matches[1]);
+            $newMessage->setLayer((int)$matches[2]);
+            $newMessage->parseArguments($message);
 
             return $newMessage;
         }
@@ -51,10 +39,18 @@ abstract class Stage extends Channel
     /**
      * Layer
      *
-     * @return int
+     * @return int|null
      */
-    public function getLayer(): int
+    public function getLayer(): ?int
     {
         return $this->layer;
+    }
+
+    /**
+     * @param int $layer
+     */
+    public function setLayer(int $layer)
+    {
+        $this->layer = $layer;
     }
 }

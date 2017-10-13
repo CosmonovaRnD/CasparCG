@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Producer\FFmpeg;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Stage;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class Frame
@@ -24,20 +25,19 @@ class Frame extends Stage
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->elapsed = (int)$data[0] ?? 0;
-        $this->total   = (int)$data[1] ?? 0;
-
-        parent::__construct($channel, $layer);
+        $data          = $message->getArguments();
+        $this->elapsed = (int)($data[0] ?? 0);
+        $this->total   = (int)($data[1] ?? 0);
     }
 
     /**
      * Frames elapsed on file playback
      *
-     * @return int
+     * @return int|null
      */
-    public function getElapsed(): int
+    public function getElapsed(): ?int
     {
         return $this->elapsed;
     }
@@ -45,9 +45,9 @@ class Frame extends Stage
     /**
      * Total frames
      *
-     * @return int
+     * @return int|null
      */
-    public function getTotal(): int
+    public function getTotal(): ?int
     {
         return $this->total;
     }

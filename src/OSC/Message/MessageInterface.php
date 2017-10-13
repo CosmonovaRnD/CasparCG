@@ -18,12 +18,11 @@ interface MessageInterface
     /**
      * Create Message model from raw object data
      *
-     * @param RawMessage   $message
-     * @param EventManager $eventManager
+     * @param RawMessage $message
      *
      * @return $this
      */
-    public static function create(RawMessage $message, EventManager $eventManager = null);
+    public static function create(RawMessage $message);
 
     /**
      * Set event manager
@@ -45,4 +44,9 @@ interface MessageInterface
      * @return mixed
      */
     public function dispatch();
+
+    /**
+     * @param \CosmonovaRnD\CasparCG\OSC\RawMessage $message
+     */
+    public function parseArguments(RawMessage $message);
 }

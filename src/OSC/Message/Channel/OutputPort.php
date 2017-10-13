@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\OSC\Message\Channel;
 
-use CosmonovaRnD\CasparCG\EventManager;
 use CosmonovaRnD\CasparCG\OSC\Message\Channel;
 use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
@@ -20,29 +19,17 @@ abstract class OutputPort extends Channel
     protected $port;
 
     /**
-     * @inheritDoc
-     */
-    public function __construct(int $channel, int $port)
-    {
-        $this->port = $port;
-
-        parent::__construct($channel);
-    }
-
-    /**
      * @inheritdoc
      */
-    public static function create(RawMessage $message, EventManager $eventManager = null)
+    public static function create(RawMessage $message)
     {
         preg_match(static::$pattern, $message->getAddress(), $matches);
 
         if (isset($matches[0], $matches[1], $matches[2])) {
-            $newMessage = new static((int)$matches[1], (int)$matches[2]);
-
-            if ($eventManager) {
-                $newMessage->setEventManager($eventManager);
-                $newMessage->dispatch();
-            }
+            $newMessage = new static();
+            $newMessage->setChannel((int)$matches[1]);
+            $newMessage->setPort((int)$matches[2]);
+            $newMessage->parseArguments($message);
 
             return $newMessage;
         }
@@ -51,10 +38,18 @@ abstract class OutputPort extends Channel
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPort(): int
+    public function getPort(): ?int
     {
         return $this->port;
+    }
+
+    /**
+     * @param int $port
+     */
+    public function setPort(int $port)
+    {
+        $this->port = $port;
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Channel;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Channel;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class Format
@@ -22,17 +23,17 @@ class Format extends Channel
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->value = (string)rtrim($data[0], "\0") ?? 'Unknown format';
+        $data = $message->getArguments();
 
-        parent::__construct($channel);
+        $this->value = rtrim($data[0], "\0") ?? 'Unknown format';
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }

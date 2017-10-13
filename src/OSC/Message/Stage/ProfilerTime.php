@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Stage;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Stage;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class ProfilerTime
@@ -24,20 +25,19 @@ class ProfilerTime extends Stage
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->actual   = (float)$data[0] ?? (float)0;
-        $this->expected = (float)$data[1] ?? (float)0;
-
-        parent::__construct($channel, $layer);
+        $data           = $message->getArguments();
+        $this->actual   = (float)($data[0] ?? 0);
+        $this->expected = (float)($data[1] ?? 0);
     }
 
     /**
      * Actual time on frame
      *
-     * @return float
+     * @return float|null
      */
-    public function getActual(): float
+    public function getActual(): ?float
     {
         return $this->actual;
     }
@@ -45,9 +45,9 @@ class ProfilerTime extends Stage
     /**
      * Expected time on frame
      *
-     * @return float
+     * @return float|null
      */
-    public function getExpected(): float
+    public function getExpected(): ?float
     {
         return $this->expected;
     }

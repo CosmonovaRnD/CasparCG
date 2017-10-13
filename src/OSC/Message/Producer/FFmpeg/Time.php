@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Producer\FFmpeg;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Stage;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class ProfilerTime
@@ -24,12 +25,11 @@ class Time extends Stage
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->elapsed = (float)$data[0] ?? (float)0;
-        $this->total   = (float)$data[1] ?? (float)0;
-
-        parent::__construct($channel, $layer);
+        $data          = $message->getArguments();
+        $this->elapsed = (float)($data[0] ?? 0);
+        $this->total   = (float)($data[1] ?? 0);
     }
 
     /**
@@ -37,7 +37,7 @@ class Time extends Stage
      *
      * @return float
      */
-    public function getElapsed(): float
+    public function getElapsed(): ?float
     {
         return $this->elapsed;
     }
@@ -45,9 +45,9 @@ class Time extends Stage
     /**
      * Total Seconds
      *
-     * @return float
+     * @return float|null
      */
-    public function getTotal(): float
+    public function getTotal(): ?float
     {
         return $this->total;
     }

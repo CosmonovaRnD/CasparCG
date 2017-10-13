@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Mixer;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Channel;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class AudioNbChannels
@@ -22,19 +23,18 @@ class AudioNbChannels extends Channel
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->value = (int)$data[0] ?? 0;
-
-        parent::__construct($channel);
+        $data        = $message->getArguments();
+        $this->value = (int)($data[0] ?? 0);
     }
 
     /**
      * Number of audio channels in use on this CasparCG channel
      *
-     * @return int
+     * @return int|null
      */
-    public function getValue(): int
+    public function getValue(): ?int
     {
         return $this->value;
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Producer\FFmpeg;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Stage;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class Loop
@@ -22,19 +23,18 @@ class Loop extends Stage
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->value = (bool)$data[0] ?? false;
-
-        parent::__construct($channel, $layer);
+        $data        = $message->getArguments();
+        $this->value = (bool)($data[0] ?? false);
     }
 
     /**
      * Whether the file is set to loop playback or not, only applies to ffmpeg inputs of type file not stream or device.
      *
-     * @return bool
+     * @return bool|null
      */
-    public function getValue(): bool
+    public function getValue(): ?bool
     {
         return $this->value;
     }

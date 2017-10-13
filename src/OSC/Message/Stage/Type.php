@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Stage;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Stage;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class Type
@@ -22,19 +23,18 @@ class Type extends Stage
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->value = (string)rtrim($data[0], "\0") ?? 'type is undefined';
-
-        parent::__construct($channel, $layer);
+        $data        = $message->getArguments();
+        $this->value = isset($data[0]) ? rtrim($data[0], "\0") : 'type is undefined';
     }
 
     /**
      * Get layer type
      *
-     * @return string
+     * @return string|null
      */
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }

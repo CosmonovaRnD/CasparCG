@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace CosmonovaRnD\CasparCG\OSC\Message\Stage;
 
 use CosmonovaRnD\CasparCG\OSC\Message\Stage;
+use CosmonovaRnD\CasparCG\OSC\RawMessage;
 
 /**
  * Class Time
@@ -22,19 +23,18 @@ class Time extends Stage
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer, array $data)
+    public function parseArguments(RawMessage $message)
     {
-        $this->value = (float)$data[0] ?? (float)0;
-
-        parent::__construct($channel, $layer);
+        $data        = $message->getArguments();
+        $this->value = (float)($data[0] ?? 0);
     }
 
     /**
      * Seconds the layer has been active
      *
-     * @return float
+     * @return float|null
      */
-    public function getValue(): float
+    public function getValue(): ?float
     {
         return $this->value;
     }
