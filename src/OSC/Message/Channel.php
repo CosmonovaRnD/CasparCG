@@ -17,13 +17,16 @@ abstract class Channel extends AbstractMessage
 {
     /** @var int */
     protected $channel;
+    /** @var  mixed */
+    protected $value;
 
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel)
+    public function __construct(int $channel, $value = null)
     {
         $this->channel = $channel;
+        $this->value   = $value;
     }
 
     /**
@@ -34,7 +37,7 @@ abstract class Channel extends AbstractMessage
         preg_match(static::$pattern, $message->getAddress(), $matches);
 
         if (isset($matches[0], $matches[1])) {
-            $newMsg = new static((int)$matches[1]);
+            $newMsg = new static((int)$matches[1], $message->getArguments());
 
             if ($eventManager) {
                 $newMsg->setEventManager($eventManager);

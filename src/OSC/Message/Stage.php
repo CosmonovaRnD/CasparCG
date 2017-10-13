@@ -21,11 +21,10 @@ abstract class Stage extends Channel
     /**
      * @inheritDoc
      */
-    public function __construct(int $channel, int $layer)
+    public function __construct(int $channel, int $layer, $value = null)
     {
+        parent::__construct($channel, $value);
         $this->layer = $layer;
-
-        parent::__construct($channel);
     }
 
     /**
@@ -36,7 +35,7 @@ abstract class Stage extends Channel
         preg_match(static::$pattern, $message->getAddress(), $matches);
 
         if (isset($matches[0], $matches[1], $matches[2])) {
-            $newMessage = new static((int)$matches[1], (int)$matches[2]);
+            $newMessage = new static((int)$matches[1], (int)$matches[2], $message->getArguments());
 
             if ($eventManager) {
                 $newMessage->setEventManager($eventManager);
