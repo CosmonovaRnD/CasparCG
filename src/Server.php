@@ -19,7 +19,7 @@ class Server
     public function __construct(string $address = '127.0.0.1', int $port = 6250)
     {
         $this->address = $address;
-        $this->port    = $port;
+        $this->port = $port;
     }
 
     function __destruct()
@@ -61,7 +61,7 @@ class Server
         $buffer = '';
 
         if ($this->isStarted()) {
-            socket_recv($this->socket, $buffer, 2048, MSG_DONTWAIT);
+            socket_recv($this->socket, $buffer, 4096, MSG_WAITALL);
 
             return $buffer;
         }
