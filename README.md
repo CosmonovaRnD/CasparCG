@@ -58,7 +58,7 @@ if($response->success()) {
 
 OSC works over the UDP protocol.
 
-I'll try to show how to catch them in small simple example
+I'll try to show how to catch messages in small simple example
 
 ```php
 
