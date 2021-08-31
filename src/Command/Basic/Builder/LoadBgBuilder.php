@@ -109,7 +109,7 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
     public function transition(string $transition): ExtendBuilderInterface
     {
         if (!in_array(strtoupper($transition), static::transitionTypes())) {
-            $message = 'Transition must be one of the following values: ' . join(',', static::transitionTypes());
+            $message = 'Transition must be one of the following values: ' . implode(',', static::transitionTypes());
             throw new ParamException($message);
         }
 
@@ -138,7 +138,7 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
     public function tween(string $tween): ExtendBuilderInterface
     {
         if (!in_array($tween, Tween::animationTypes())) {
-            $message = 'Tween param must be one of the following values: ' . join(',', Tween::animationTypes());
+            $message = 'Tween param must be one of the following values: ' . implode(',', Tween::animationTypes());
             throw new ParamException($message);
         }
 
@@ -155,7 +155,7 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
         $directions = [self::DIRECTION_LEFT, self::DIRECTION_RIGHT];
 
         if (!in_array(strtoupper($direction), $directions)) {
-            $message = 'Direction must be one of the following values: ' . join(',', $directions);
+            $message = 'Direction must be one of the following values: ' . implode(',', $directions);
             throw new ParamException($message);
         }
 
@@ -261,9 +261,8 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
             $transitionParts[] = $this->direction;
 
             $transitionParts = array_filter($transitionParts);
-            $transition      = join(' ', $transitionParts);
 
-            return $transition;
+            return implode(' ', $transitionParts);
         }
 
         return '';
@@ -338,7 +337,7 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'LOADBG';
         $commandParts[] = $this->buildChannel();
@@ -353,9 +352,8 @@ class LoadBgBuilder extends BaseBuilder implements ExtendBuilderInterface
 
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 
     #endregion

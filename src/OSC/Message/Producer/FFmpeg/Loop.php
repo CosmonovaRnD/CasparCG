@@ -34,7 +34,7 @@ class Loop extends Stage
      *
      * @return bool|null
      */
-    public function getValue(): ?bool
+    public function getValue()
     {
         return $this->value;
     }

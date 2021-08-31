@@ -130,7 +130,7 @@ class CropBuilder extends BaseBuilder
         $parts = [$this->xLeft, $this->yTop];
         array_filter($parts);
 
-        return join(' ', $parts);
+        return implode(' ', $parts);
     }
 
     /**
@@ -141,13 +141,13 @@ class CropBuilder extends BaseBuilder
         $parts = [$this->xRight, $this->yBottom];
         array_filter($parts);
 
-        return join(' ', $parts);
+        return implode(' ', $parts);
     }
 
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $channelAndLayer = $this->buildChannel();
         $leftTop         = $this->buildLeftTop();
@@ -155,7 +155,7 @@ class CropBuilder extends BaseBuilder
 
         $tail = '';
 
-        if (strlen($leftTop) && strlen($rightBottom)) {
+        if ('' !== $leftTop && '' !== $rightBottom) {
             $tail = "$leftTop $rightBottom {$this->duration} {$this->animation}";
         }
 

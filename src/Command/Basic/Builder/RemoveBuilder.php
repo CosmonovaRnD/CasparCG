@@ -148,9 +148,7 @@ class RemoveBuilder implements CommandBuilderInterface, BaseBuilderInterface
     public function buildFile(): string
     {
         if ($this->file) {
-            $result = 'FILE ' . $this->file;
-
-            return $result;
+            return 'FILE ' . $this->file;
         }
 
         return '';
@@ -159,9 +157,7 @@ class RemoveBuilder implements CommandBuilderInterface, BaseBuilderInterface
     public function buildStream(): string
     {
         if ($this->stream) {
-            $result = 'STREAM ' . $this->stream;
-
-            return $result;
+            return 'STREAM ' . $this->stream;
         }
 
         return '';
@@ -170,7 +166,7 @@ class RemoveBuilder implements CommandBuilderInterface, BaseBuilderInterface
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'REMOVE';
         $commandParts[] = $this->buildChannel();
@@ -191,7 +187,7 @@ class RemoveBuilder implements CommandBuilderInterface, BaseBuilderInterface
         foreach ($consumerBuilders as $consumerBuilder) {
             $consumer = $consumerBuilder;
 
-            if (strlen($consumer)) {
+            if ('' !== $consumer) {
                 $consumerCommandPart = $consumer;
             }
         }
@@ -203,9 +199,8 @@ class RemoveBuilder implements CommandBuilderInterface, BaseBuilderInterface
         $commandParts[] = $consumerCommandPart;
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 
     #endregion

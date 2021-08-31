@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\Command\Basic\Builder;
@@ -55,7 +56,7 @@ class SetBuilder implements BaseBuilderInterface
     public function mode(string $videoFormat): SetBuilder
     {
         if (!in_array($videoFormat, self::videoFormats())) {
-            $message = sprintf('Video format must be one of the following values: ', join(',', self::videoFormats()));
+            $message = 'Video format must be one of the following values: '.implode(',', self::videoFormats());
             throw new ParamException($message);
         }
 
@@ -97,16 +98,15 @@ class SetBuilder implements BaseBuilderInterface
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'SET';
         $commandParts[] = $this->buildChannel();
         $commandParts[] = $this->buildMode();
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 
     #endregion

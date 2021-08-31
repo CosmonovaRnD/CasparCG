@@ -37,7 +37,7 @@ class Time extends Stage
      *
      * @return float
      */
-    public function getElapsed(): ?float
+    public function getElapsed()
     {
         return $this->elapsed;
     }
@@ -47,7 +47,7 @@ class Time extends Stage
      *
      * @return float|null
      */
-    public function getTotal(): ?float
+    public function getTotal()
     {
         return $this->total;
     }

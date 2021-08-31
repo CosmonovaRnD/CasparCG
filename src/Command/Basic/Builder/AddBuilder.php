@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\Command\Basic\Builder;
@@ -114,7 +115,7 @@ class AddBuilder implements BaseBuilderInterface, CommandBuilderInterface
     protected function buildDeckLink(): string
     {
         if ($this->deckLink) {
-            return 'DECKLINK ' . $this->deckLink;
+            return 'DECKLINK '.$this->deckLink;
         }
 
         return '';
@@ -123,7 +124,7 @@ class AddBuilder implements BaseBuilderInterface, CommandBuilderInterface
     protected function buildBluefish(): string
     {
         if ($this->bluefish) {
-            return 'BLUEFISH ' . $this->bluefish;
+            return 'BLUEFISH '.$this->bluefish;
         }
 
         return '';
@@ -150,7 +151,7 @@ class AddBuilder implements BaseBuilderInterface, CommandBuilderInterface
     public function buildImage()
     {
         if ($this->image) {
-            return 'IMAGE ' . $this->image;
+            return 'IMAGE '.$this->image;
         }
 
         return '';
@@ -159,10 +160,10 @@ class AddBuilder implements BaseBuilderInterface, CommandBuilderInterface
     public function buildFile(): string
     {
         if ($this->file) {
-            $result = 'FILE ' . $this->file;
+            $result = 'FILE '.$this->file;
 
             if ($this->separateKey) {
-                $result = $result . ' SEPARATE_KEY';
+                $result = $result.' SEPARATE_KEY';
             }
 
             return $result;
@@ -174,10 +175,10 @@ class AddBuilder implements BaseBuilderInterface, CommandBuilderInterface
     public function buildStream(): string
     {
         if ($this->stream) {
-            $result = 'STREAM ' . $this->stream;
+            $result = 'STREAM '.$this->stream;
 
             if ($this->streamArgs) {
-                $result = $result . ' ' . $this->streamArgs;
+                $result .= ' '.$this->streamArgs;
             }
 
             return $result;
@@ -189,7 +190,7 @@ class AddBuilder implements BaseBuilderInterface, CommandBuilderInterface
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'ADD';
         $commandParts[] = $this->buildChannel();
@@ -202,7 +203,7 @@ class AddBuilder implements BaseBuilderInterface, CommandBuilderInterface
             $this->buildAudio(),
             $this->buildImage(),
             $this->buildFile(),
-            $this->buildStream()
+            $this->buildStream(),
         ];
 
         $consumerCommandPart = null;
@@ -210,7 +211,7 @@ class AddBuilder implements BaseBuilderInterface, CommandBuilderInterface
         foreach ($consumerBuilders as $consumerBuilder) {
             $consumer = $consumerBuilder;
 
-            if (strlen($consumer)) {
+            if ('' !== $consumer) {
                 $consumerCommandPart = $consumer;
             }
         }
@@ -222,9 +223,8 @@ class AddBuilder implements BaseBuilderInterface, CommandBuilderInterface
         $commandParts[] = $consumerCommandPart;
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 
     #endregion

@@ -131,7 +131,7 @@ class FillBuilder extends BaseBuilder
         $parts = [$this->x, $this->y];
         array_filter($parts);
 
-        return join(' ', $parts);
+        return implode(' ', $parts);
     }
 
     /**
@@ -142,13 +142,13 @@ class FillBuilder extends BaseBuilder
         $parts = [$this->width, $this->height];
         array_filter($parts);
 
-        return join(' ', $parts);
+        return implode(' ', $parts);
     }
 
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $channelAndLayer = $this->buildChannel();
         $coordinates     = $this->buildCoordinates();
@@ -156,7 +156,7 @@ class FillBuilder extends BaseBuilder
 
         $tail = '';
 
-        if (strlen($coordinates) && strlen($size)) {
+        if ('' !== $coordinates && '' !== $size) {
             $tail = "$coordinates $size {$this->duration} {$this->animation}";
         }
 

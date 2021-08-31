@@ -40,7 +40,7 @@ abstract class OutputPort extends Channel
     /**
      * @return int|null
      */
-    public function getPort(): ?int
+    public function getPort()
     {
         return $this->port;
     }

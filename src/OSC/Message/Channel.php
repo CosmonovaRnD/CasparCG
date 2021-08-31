@@ -38,7 +38,7 @@ abstract class Channel extends AbstractMessage
     /**
      * @return int|null
      */
-    public function getChannel(): ?int
+    public function getChannel()
     {
         return $this->channel;
     }

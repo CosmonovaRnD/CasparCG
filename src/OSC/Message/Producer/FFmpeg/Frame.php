@@ -37,7 +37,7 @@ class Frame extends Stage
      *
      * @return int|null
      */
-    public function getElapsed(): ?int
+    public function getElapsed()
     {
         return $this->elapsed;
     }
@@ -47,7 +47,7 @@ class Frame extends Stage
      *
      * @return int|null
      */
-    public function getTotal(): ?int
+    public function getTotal()
     {
         return $this->total;
     }

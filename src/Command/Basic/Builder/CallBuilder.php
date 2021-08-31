@@ -1,7 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\Command\Basic\Builder;
+
+use function array_filter;
+use function implode;
 
 /**
  * Class CallBuilder
@@ -22,13 +26,6 @@ class CallBuilder extends LoadBgBuilder
 
     #region setters
 
-    /**
-     * Set INVOKE
-     *
-     * @param string $command
-     *
-     * @return \CosmonovaRnD\CasparCG\Command\Basic\Builder\CallBuilder
-     */
     public function invoke(string $command): CallBuilder
     {
         $this->invoke = $command;
@@ -40,19 +37,21 @@ class CallBuilder extends LoadBgBuilder
 
     #region builders
 
-    protected function buildInvoke(): string
+    protected function buildInvoke(bool $legacy): string
     {
-        return null !== $this->invoke ? sprintf('INVOKE "%s"', addslashes($this->invoke)) : '';
+        $invoke = $legacy ? 'INVOKE' : '';
+
+        return null !== $this->invoke ? sprintf('%s "%s"', $invoke, addslashes($this->invoke)) : '';
     }
 
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'CALL';
         $commandParts[] = $this->buildChannel();
-        $commandParts[] = $this->buildInvoke();
+        $commandParts[] = $this->buildInvoke($legacy);
         $commandParts[] = $this->buildLoop();
         $commandParts[] = $this->buildTransitionGroup();
         $commandParts[] = $this->buildSeek();
@@ -61,9 +60,8 @@ class CallBuilder extends LoadBgBuilder
         $commandParts[] = $this->buildAuto();
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 
     #endregion

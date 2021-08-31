@@ -17,7 +17,7 @@ class LoadBuilder extends LoadBgBuilder
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'LOAD';
         $commandParts[] = $this->buildChannel();
@@ -31,8 +31,7 @@ class LoadBuilder extends LoadBgBuilder
 
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 }

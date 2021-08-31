@@ -85,7 +85,7 @@ class SaturationBuilder extends BaseBuilder
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $channelAndLayer = $this->buildChannel();
 

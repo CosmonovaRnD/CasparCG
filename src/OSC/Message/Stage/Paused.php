@@ -34,7 +34,7 @@ class Paused extends Stage
      *
      * @return bool|null
      */
-    public function isValue(): ?bool
+    public function isValue()
     {
         return $this->value;
     }

@@ -77,7 +77,7 @@ class ChromaBuilder extends BaseBuilder
 
     #endregion
 
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $channelAndLayer = $this->buildChannel();
 

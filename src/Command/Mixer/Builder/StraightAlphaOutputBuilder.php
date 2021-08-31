@@ -85,15 +85,15 @@ class StraightAlphaOutputBuilder implements BaseBuilderInterface, CommandBuilder
     {
         if (null === $this->active) {
             return '';
-        } else {
-            return $this->active ? '1' : '0';
         }
+
+        return $this->active ? '1' : '0';
     }
 
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $channel     = $this->buildChannel();
         $activeState = $this->buildActiveState();

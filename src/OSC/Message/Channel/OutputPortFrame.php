@@ -36,7 +36,7 @@ class OutputPortFrame extends OutputPort
      *
      * @return int|null
      */
-    public function getCurrentFrames(): ?int
+    public function getCurrentFrames()
     {
         return $this->currentFrames;
     }
@@ -46,7 +46,7 @@ class OutputPortFrame extends OutputPort
      *
      * @return int|null
      */
-    public function getMaxFrames(): ?int
+    public function getMaxFrames()
     {
         return $this->maxFrames;
     }

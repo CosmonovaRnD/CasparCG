@@ -37,7 +37,7 @@ class ProfilerTime extends Stage
      *
      * @return float|null
      */
-    public function getActual(): ?float
+    public function getActual()
     {
         return $this->actual;
     }
@@ -47,7 +47,7 @@ class ProfilerTime extends Stage
      *
      * @return float|null
      */
-    public function getExpected(): ?float
+    public function getExpected()
     {
         return $this->expected;
     }

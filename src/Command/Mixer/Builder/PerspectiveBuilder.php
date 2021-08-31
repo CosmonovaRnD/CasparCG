@@ -134,7 +134,7 @@ class PerspectiveBuilder extends BaseBuilder
         $parts = [$x, $y];
         array_filter($parts);
 
-        return join(' ', $parts);
+        return implode(' ', $parts);
     }
 
     /**
@@ -172,7 +172,7 @@ class PerspectiveBuilder extends BaseBuilder
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $channelAndLayer = $this->buildChannel();
         $topLeft         = $this->buildTopLeft();
@@ -182,7 +182,7 @@ class PerspectiveBuilder extends BaseBuilder
 
         $tail = '';
 
-        if (strlen($topLeft) && strlen($topRight) && strlen($bottomRight) && strlen($bottomLeft)) {
+        if ('' !== $topLeft && '' !== $topRight && '' !== $bottomRight && '' !== $bottomLeft) {
             $tail = "$topLeft $topRight $bottomRight $bottomLeft";
         }
 

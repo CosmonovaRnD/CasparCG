@@ -42,7 +42,7 @@ class KeyerBuilder extends BaseBuilder
     /**
      * @inheritdoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $chanelAndLayer = $this->buildChannel();
         $keyer          = $this->keyer ? 1 : 0;

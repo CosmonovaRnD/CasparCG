@@ -76,7 +76,7 @@ class MasterVolumeBuilder implements BaseBuilderInterface, CommandBuilderInterfa
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $channel = $this->buildChannel();
 

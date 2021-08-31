@@ -77,22 +77,21 @@ class SwapBuilder extends BaseBuilder
         $swapChannel = [$this->swapChannel, $this->swapLayer];
         $swapChannel = array_filter($swapChannel);
 
-        return join('-', $swapChannel);
+        return implode('-', $swapChannel);
     }
 
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'SWAP';
         $commandParts[] = $this->buildChannel();
         $commandParts[] = $this->buildSwapChannel();
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 
     #endregion

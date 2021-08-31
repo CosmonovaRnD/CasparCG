@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace CosmonovaRnD\CasparCG\Command\Basic\Builder;
 
+use function array_filter;
+use function implode;
+
 /**
  * Class ClearBuilder
  *
@@ -17,14 +20,13 @@ class ClearBuilder extends BaseBuilder
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'CLEAR';
         $commandParts[] = $this->buildChannel();
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 }

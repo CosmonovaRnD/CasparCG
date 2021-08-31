@@ -41,7 +41,7 @@ abstract class Stage extends Channel
      *
      * @return int|null
      */
-    public function getLayer(): ?int
+    public function getLayer()
     {
         return $this->layer;
     }

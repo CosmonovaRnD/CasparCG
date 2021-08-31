@@ -34,7 +34,7 @@ class VideoField extends Stage
      *
      * @return string|null
      */
-    public function getValue(): ?string
+    public function getValue()
     {
         return $this->value;
     }

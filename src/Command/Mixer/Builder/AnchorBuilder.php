@@ -65,13 +65,13 @@ class AnchorBuilder extends BaseBuilder
         $parts = [$this->x, $this->y];
         array_filter($parts);
 
-        return join(' ', $parts);
+        return implode(' ', $parts);
     }
 
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $channelAndLayer = $this->buildChannel();
         $coordinates     = $this->buildCoordinates();

@@ -34,7 +34,7 @@ class Fps extends Stage
      *
      * @return float|null
      */
-    public function getValue(): ?float
+    public function getValue()
     {
         return $this->value;
     }

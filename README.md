@@ -3,7 +3,7 @@ Is an implementation of CasparCG 2.0 AMCP Protocol and OSC Protocol
 
 Requirements
 -----
- - CasparCG v2.0.7
+ - CasparCG v2.0.7|v2.3.0
  - PHP 7.0
  
 Installation

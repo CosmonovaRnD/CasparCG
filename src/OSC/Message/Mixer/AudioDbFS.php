@@ -63,7 +63,7 @@ class AudioDbFS extends Channel
      *
      * @return int|null
      */
-    public function getNbChannel(): ?int
+    public function getNbChannel()
     {
         return $this->nbChannel;
     }
@@ -73,7 +73,7 @@ class AudioDbFS extends Channel
      *
      * @return float|null
      */
-    public function getLevel(): ?float
+    public function getLevel()
     {
         return $this->level;
     }

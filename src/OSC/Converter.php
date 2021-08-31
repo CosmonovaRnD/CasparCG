@@ -78,7 +78,7 @@ class Converter
 
     public static function char(string $bin): string
     {
-        $res = unpack('cval', substr($bin, 0, 1));
+        $res = unpack('cval', $bin[0]);
 
         return $res['val'];
     }

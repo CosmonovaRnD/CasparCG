@@ -34,7 +34,7 @@ class AudioNbChannels extends Channel
      *
      * @return int|null
      */
-    public function getValue(): ?int
+    public function getValue()
     {
         return $this->value;
     }

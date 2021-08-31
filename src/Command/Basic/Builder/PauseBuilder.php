@@ -17,14 +17,13 @@ class PauseBuilder extends BaseBuilder
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'PAUSE';
         $commandParts[] = $this->buildChannel();
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 }

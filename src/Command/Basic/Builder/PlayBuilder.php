@@ -25,7 +25,7 @@ class PlayBuilder extends LoadBgBuilder
     /**
      * @inheritDoc
      */
-    public function build(): string
+    public function build(bool $legacy = false): string
     {
         $commandParts[] = 'PLAY';
         $commandParts[] = $this->buildChannel();
@@ -40,9 +40,8 @@ class PlayBuilder extends LoadBgBuilder
 
 
         $commandParts = array_filter($commandParts);
-        $command      = join(' ', $commandParts);
 
-        return $command;
+        return implode(' ', $commandParts);
     }
 
 }

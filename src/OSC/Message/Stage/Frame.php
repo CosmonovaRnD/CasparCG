@@ -34,7 +34,7 @@ class Frame extends Stage
      *
      * @return int|null
      */
-    public function getValue(): ?int
+    public function getValue()
     {
         return $this->value;
     }
