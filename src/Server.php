@@ -53,7 +53,7 @@ class Server
 
     public function isStarted()
     {
-        return is_resource($this->socket);
+        return is_resource($this->socket) || $this->socket instanceof \Socket;
     }
 
     public function read()
